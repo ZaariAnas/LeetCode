@@ -1,26 +1,19 @@
 class Solution {
     public static boolean isSubsequence(String s, String t) {
 
-        Queue<Character> charDeque = new ArrayDeque<>();
-        StringBuilder scopy = new StringBuilder(s);
-        StringBuilder tcopy = new StringBuilder(t);
-        
-        if (scopy.length() == 0)
+        int ptr = 0;
+        if (s.isEmpty())
             return true;
         
-        for (int i = 0; i < scopy.length(); i++) {
-            charDeque.offer(scopy.charAt(i));
+        for (int i = 0; i < t.length(); i++) {
+            if (t.charAt(i) == s.charAt(ptr))
+                ptr++;
+            if (ptr == s.length())
+                return true;
         }
         
+
         
-        for (int i = 0; i < tcopy.length(); i++) {
-            if ( charDeque.size() > 0 && tcopy.charAt(i) == charDeque.peek() ) {
-                charDeque.poll();
-                if (charDeque.size() == 0) {
-                    return true;
-                }
-            }
-        }
         return false;
 
     }
