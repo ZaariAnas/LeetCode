@@ -1,30 +1,20 @@
 class Solution {
-    
-    public int getProd(int [] nums, int index) {
-        int prod = 1;
-        int cntr = 0;
-        for (int i = 0; i < nums.length; i++) {
-            if (i != index)
-                prod *= nums[i];
-            if (nums[i] == 0)
-                cntr++;
-        }
-        if (cntr == nums.length)
-            return 0;
-        return prod;
-    }
 
     public int[] productExceptSelf(int[] nums) {
         
-        int [] rslt = new int[nums.length];
-        int prod = getProd(nums, -1);
+        int n = nums.length;
+        int [] result = new int[n];
         
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] != 0)
-                rslt[i] = prod / nums[i];
-            else
-                rslt[i] = getProd(nums, i);
+        result[0] = 1;
+        for (int i = 1; i < nums.length; i++) {
+            result[i] = result[i - 1] * nums[i - 1];
         }
-        return rslt;
+        
+        int suffixProd = 1;
+        for (int i = n - 1; i >= 0; i--) {
+            result[i] *= suffixProd;
+            suffixProd *= nums[i];
+        }
+        return result;
     }
 }
